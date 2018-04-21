@@ -2,30 +2,37 @@ let books = [];
 let id = 0;
 
 module.exports = {
+  
+  // GET
   read: (req, res) => {
     res.status(200).send(books);
   },
-  create: (req, res) => {
-    let {title, author } = req.body;
-    let newBook = {
+  
+  // POST
+  create: ( req, res ) => {
+    const { title, author } = req.body;
+    let book = {
       id: id,
       title: title,
-      author: body
+      author: author
     }
-    id++
-    books.push( newBook );
-    res.status(200).send(books);
+    books.push(book);
+    id++;
+    res.status(200).send( books );
   },
+  
+  // PUT
   update: (req, res) => {
     books.forEach(book => {
       if (book.id === parseInt(req.params.id)){
-        let { title, author } = req.body;
-        books.tite = title;
-        books.author = author;
+        if (req.body.title) book.title = req.body.title;
+        if (req.body.author) book.author = req.body.author;
         res.status(200).send(books);
       }
     })
   },
+
+  // DELETE
   delete: (req, res) => {
     let index = -1;
     books.forEach( (book, i) => {
