@@ -1,4 +1,16 @@
-let books = [];
+let books = [
+  {
+    id: 15,
+    title: "The Ersatz Elevator",
+    author: "Lemony Snicket"
+  },
+  {
+    id: 3,
+    title: "Mistborn",
+    author: "Brandon Sanderson"
+  },
+];
+
 let id = 0;
 
 module.exports = {
@@ -36,11 +48,15 @@ module.exports = {
   delete: (req, res) => {
     let index = -1;
     books.forEach( (book, i) => {
-      if (book.id === req.params.id){
+      if (book.id === parseInt(req.params.id)){
         index = i;
       }
     } );
-    books.splice(index, 1);
+    if (index !== -1){
+      books.splice(index, 1);
+    } else{
+      res.status(404);
+    }
     res.status(200).send(books);
   }
 };
